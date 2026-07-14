@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import gedungImg from '../assets/gedung.png';
+import gedungImg from '../assets/gedung.webp';
 
 
 export default function IntroSequence() {
@@ -78,7 +78,7 @@ export default function IntroSequence() {
         
         {/* Character Image */}
         <img
-          src="/me-swing.png"
+          src="/me-swing.webp"
           alt="Me Swing"
           className="w-full object-contain relative z-10 drop-shadow-[8px_8px_0px_rgba(0,0,0,0.5)]"
         />

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import backImg from '../assets/back.png';
-import heroImg from '../assets/hero.png';
+import backImg from '../assets/back.webp';
+import heroImg from '../assets/hero.webp';
 import RansomText from './RansomText';
 import { supabase } from '../supabaseClient';
 

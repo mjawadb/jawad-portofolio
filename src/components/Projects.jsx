@@ -2,9 +2,9 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import RansomText from './RansomText';
 
-import escapeFromHellImg from '../assets/projects/escape-from-hell.png';
-import mario3dImg from '../assets/projects/mario-3d.png';
-import zombieBeatdownImg from '../assets/projects/zombie-beatdown.png';
+import escapeFromHellImg from '../assets/projects/escape-from-hell.webp';
+import mario3dImg from '../assets/projects/mario-3d.webp';
+import zombieBeatdownImg from '../assets/projects/zombie-beatdown.webp';
 
 import vid1 from '../assets/projects/card-1.mp4';
 import vid2 from '../assets/projects/card-2.mp4';

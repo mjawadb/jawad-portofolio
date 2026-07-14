@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import handBlogImg from '../assets/hand-blog.png';
-import backImg from '../assets/back.png';
-import heroImg from '../assets/hero.png';
-import bgBlogImg from '../assets/bg-blog.png';
-import dateImg from '../assets/date.png';
+import handBlogImg from '../assets/hand-blog.webp';
+import backImg from '../assets/back.webp';
+import heroImg from '../assets/hero.webp';
+import bgBlogImg from '../assets/bg-blog.webp';
+import dateImg from '../assets/date.webp';
 import { supabase } from '../supabaseClient';
 
 export default function Blog({ setView }) {

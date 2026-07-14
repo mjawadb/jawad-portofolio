@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-import heroImg from '../assets/hero.png';
-import streamStartImg from '../assets/stream-start.png';
+import heroImg from '../assets/hero.webp';
+import streamStartImg from '../assets/stream-start.webp';
 
 function ShaderBackground() {
   const canvasRef = useRef(null);
