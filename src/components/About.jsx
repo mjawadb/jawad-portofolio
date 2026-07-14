@@ -118,7 +118,7 @@ export default function About() {
                   <div 
                     ref={photoRefMobile}
                     className={`w-full h-full bg-cover bg-top transition-all duration-700 ease-in-out cursor-pointer ${isMobileHovered ? 'grayscale-0 scale-110' : 'grayscale hover:grayscale-0 hover:scale-110'}`}
-                    style={{ backgroundImage: 'url(/about-photo.webp)' }}
+                    style={{ backgroundImage: 'url(/about-photo.png)' }}
                   ></div>
                 </div>
               </div>
