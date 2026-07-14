@@ -1,10 +1,11 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import gedungImg from '../assets/gedung.webp';
 
 
 export default function IntroSequence() {
   const { scrollY } = useScroll();
+  const smoothScrollY = useSpring(scrollY, { stiffness: 80, damping: 20, restDelta: 0.001 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -13,16 +14,16 @@ export default function IntroSequence() {
   
   // As user scrolls from 0 to 800px, character swings/walks across
   // -150% hides it further to the left, 120vw pushes it further to the right.
-  const charX = useTransform(scrollY, [0, 800], ['-150%', '120vw']);
-  const charY = useTransform(scrollY, [0, 800], ['-10vh', '40vh']);
-  const charRotate = useTransform(scrollY, [0, 800], [-20, 20]);
-  const charOpacity = useTransform(scrollY, [600, 800], [1, 0]);
+  const charX = useTransform(smoothScrollY, [0, 800], ['-150%', '120vw']);
+  const charY = useTransform(smoothScrollY, [0, 800], ['-10vh', '40vh']);
+  const charRotate = useTransform(smoothScrollY, [0, 800], [-20, 20]);
+  const charOpacity = useTransform(smoothScrollY, [600, 800], [1, 0]);
   
   // Building parallax effect: shifts left during scroll down (reduced for desktop)
-  const gedungX = useTransform(scrollY, [0, 800], ['0vw', '-3vw']);
+  const gedungX = useTransform(smoothScrollY, [0, 800], ['0vw', '-3vw']);
 
   // At 600px scroll, pull the whole red screen up so it's fully gone by 800px
-  const screenY = useTransform(scrollY, [600, 800], ['0vh', '-100vh']);
+  const screenY = useTransform(smoothScrollY, [600, 800], ['0vh', '-100vh']);
   
   if (!mounted) return null;
 
@@ -78,7 +79,7 @@ export default function IntroSequence() {
         
         {/* Character Image */}
         <img
-          src="/me-swing.webp"
+          src="/me-swing.png"
           alt="Me Swing"
           className="w-full object-contain relative z-10 drop-shadow-[8px_8px_0px_rgba(0,0,0,0.5)]"
         />
