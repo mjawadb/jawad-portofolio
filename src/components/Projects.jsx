@@ -44,6 +44,7 @@ const ProjectCard = ({ proj, idx }) => {
   const textBg = idx === 1 ? 'bg-[#d92323] text-white' : 'bg-white text-black';
 
   const ref = useRef(null);
+  const videoRef = useRef(null);
   const isInView = useInView(ref, { margin: "-15% 0px -15% 0px", amount: 0.3 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -61,6 +62,16 @@ const ProjectCard = ({ proj, idx }) => {
     }
     return () => clearTimeout(timeout);
   }, [isInView]);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch(e => console.log(e));
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [isHovered]);
 
   return (
     <motion.div
@@ -94,13 +105,14 @@ const ProjectCard = ({ proj, idx }) => {
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${proj.imgClass || 'object-center'}`}
             />
             <motion.video 
+              ref={videoRef}
               variants={{
                 initial: { opacity: 0, scale: 1.1 },
                 hover: { opacity: 1, scale: 1 }
               }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               src={proj.video}
-              autoPlay
+              preload="none"
               loop
               muted
               playsInline

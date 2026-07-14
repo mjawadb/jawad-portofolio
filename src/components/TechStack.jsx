@@ -162,7 +162,7 @@ export default function TechStack() {
               {category.skills.map((skill, sIdx) => (
                 <div key={sIdx} className="group relative flex flex-col items-center justify-center">
                   <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
-                    <img src={skill.image} alt={skill.name} className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-85 mix-blend-multiply filter grayscale-[15%] drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]" />
+                    <img loading="lazy" src={skill.image} alt={skill.name} className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-85 mix-blend-multiply filter grayscale-[15%] drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]" />
                   </div>
                   <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-['Space_Mono'] text-[12px] font-bold text-white bg-[#353535] px-3 py-1 -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20">
                     {skill.name}

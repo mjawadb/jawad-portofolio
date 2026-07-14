@@ -101,7 +101,7 @@ export default function Blog({ setView }) {
                 >
                   {/* Portrait Box */}
                   <div className={`w-[60px] h-[60px] sm:w-20 sm:h-20 md:w-24 md:h-24 ${blog.color} border-2 sm:border-4 border-white flex-shrink-0 z-10 flex items-center justify-center overflow-hidden translate-x-2 sm:translate-x-4 shadow-[-4px_4px_0px_rgba(0,0,0,0.5)]`}>
-                    <img src={blog.image_url || bgBlogImg} alt="Thumbnail" className="w-full h-full object-cover scale-110" />
+                    <img loading="lazy" src={blog.image_url || bgBlogImg} alt="Thumbnail" className="w-full h-full object-cover scale-110" />
                   </div>
 
                   {/* Text Box */}
