@@ -157,7 +157,8 @@ export default function Hero() {
 
 
   return (
-    <section id="hero" ref={ref} className="relative min-h-screen md:min-h-[921px] w-full flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] py-20 clip-slant mb-20 bg-black">
+    <section id="hero" ref={ref} className="relative h-[150vh] min-h-[1200px] w-full bg-black mb-20">
+      <div className="sticky top-0 w-full h-screen min-h-[800px] flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] py-20 clip-slant bg-black">
       <ShaderBackground />
 
       {/* Background Hero Content (Stream Start Image) */}
@@ -223,6 +224,7 @@ export default function Hero() {
           </motion.div>
         </div>
       </motion.div>
+      </div>
     </section>
   );
 }
