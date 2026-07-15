@@ -102,6 +102,8 @@ export default function TechStack() {
       {/* HTML-based Thunder Parallax Background (Moved behind screentone) */}
       <motion.div 
         style={{ y: thunderY }}
+        animate={{ x: [0, 100, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-0 md:top-1/4 -left-[50%] md:-left-[20%] w-[200%] md:w-[140%] h-[1500px] md:h-[500px] pointer-events-none z-0 flex items-center justify-center rotate-[25deg] md:rotate-12 scale-[1.2] md:scale-100 opacity-40"
       >
         <div className="relative w-full h-full flex items-center">
