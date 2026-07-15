@@ -47,7 +47,6 @@ const ProjectCard = ({ proj, idx }) => {
   const videoRef = useRef(null);
   const isInView = useInView(ref, { margin: "-15% 0px -15% 0px", amount: 0.3 });
   const [isHovered, setIsHovered] = useState(false);
-  const [hasPlayedMobile, setHasPlayedMobile] = useState(false);
 
   useEffect(() => {
     let timeout;
@@ -56,24 +55,24 @@ const ProjectCard = ({ proj, idx }) => {
       if (isInView) {
         timeout = setTimeout(() => {
           setIsHovered(true);
-          setHasPlayedMobile(true);
-        }, 300); // reduced timeout for snappier feel
-      } else if (!hasPlayedMobile) {
+        }, 1500); // Wait 1.5 seconds before playing to ensure user is lingering
+      } else {
         setIsHovered(false);
       }
     }
     return () => clearTimeout(timeout);
-  }, [isInView, hasPlayedMobile]);
+  }, [isInView]);
 
   useEffect(() => {
     if (videoRef.current) {
-      if (isHovered) {
+      // Only play if both hovered (or activated on mobile) AND visible on screen
+      if (isHovered && isInView) {
         videoRef.current.play().catch(e => console.log(e));
       } else {
         videoRef.current.pause();
       }
     }
-  }, [isHovered]);
+  }, [isHovered, isInView]);
 
   return (
     <motion.div
@@ -87,8 +86,8 @@ const ProjectCard = ({ proj, idx }) => {
         href={proj.link}
         target="_blank"
         rel="noopener noreferrer"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => { if (window.innerWidth >= 768) setIsHovered(true); }}
+        onMouseLeave={() => { if (window.innerWidth >= 768) setIsHovered(false); }}
         animate={isHovered ? "hover" : "initial"}
         className="block relative cursor-pointer"
       >

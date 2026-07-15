@@ -97,7 +97,28 @@ void main() {
     window.addEventListener('mousemove', onMouseMove);
 
     let animationId;
+    let isVisible = true;
+
+    // Add Intersection Observer to pause WebGL rendering when off-screen
+    const visibilityObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !animationId) {
+            render(performance.now());
+          } else if (!isVisible && animationId) {
+            cancelAnimationFrame(animationId);
+            animationId = null;
+          }
+        });
+      },
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
+
     function render(t) {
+      if (!isVisible) return; // Guard clause
+      
       gl.viewport(0, 0, canvas.width, canvas.height);
       if (uTime) gl.uniform1f(uTime, t * 0.001);
       if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
@@ -105,12 +126,13 @@ void main() {
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       animationId = requestAnimationFrame(render);
     }
-    render(0);
+    render(performance.now());
 
     return () => {
       observer.disconnect();
+      visibilityObserver.disconnect();
       window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animationId);
+      if (animationId) cancelAnimationFrame(animationId);
     };
   }, []);
 
@@ -157,8 +179,7 @@ export default function Hero() {
 
 
   return (
-    <section id="hero" ref={ref} className="relative h-[150vh] min-h-[1200px] w-full bg-black mb-20">
-      <div className="sticky top-0 w-full h-screen min-h-[800px] flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] py-20 clip-slant bg-black">
+    <section id="hero" ref={ref} className="relative w-full flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] pt-48 md:pt-[250px] lg:pt-[350px] pb-40 md:pb-10 clip-slant mb-20 bg-black">
       <ShaderBackground />
 
       {/* Background Hero Content (Stream Start Image) */}
@@ -182,7 +203,7 @@ export default function Hero() {
                 opacity: 1, scale: 1, rotate: -6, y: 0
               }}
               transition={isWiggling ? { duration: 0.6 } : { type: 'spring', stiffness: 150, damping: 10 }}
-              className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none -mt-64 md:mt-[200px] lg:mt-4 mb-8 drop-shadow-[10px_10px_0px_rgba(0,0,0,0.5)] -ml-[10%] sm:-ml-0 md:-ml-[50%]"
+              className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none -mt-16 md:mt-[450px] lg:mt-[400px] mb-8 drop-shadow-[10px_10px_0px_rgba(0,0,0,0.5)] -ml-[10%] sm:-ml-0 md:-ml-[50%]"
             />
           </div>
         </div>
@@ -211,20 +232,19 @@ export default function Hero() {
           <img
             src={streamStartImg}
             alt=""
-            className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none -mt-64 md:mt-[200px] lg:mt-4 mb-8 invisible -ml-[10%] sm:-ml-0 md:-ml-[50%]"
+            className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none -mt-16 md:mt-[200px] lg:mt-[120px] mb-8 invisible -ml-[10%] sm:-ml-0 md:-ml-[50%]"
           />
 
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
-            className="mt-32 md:-mt-[180px] lg:-mt-[450px] translate-y-24 md:translate-y-0 bg-black text-white p-4 md:p-6 text-[5vw] sm:text-xl md:text-4xl font-p5-body border-4 border-[#732424] max-w-[85vw] md:max-w-lg lg:max-w-xl transform -skew-x-6 shadow-[8px_8px_0px_#732424] text-center md:text-left pointer-events-auto relative"
+            className="mt-32 md:-mt-[280px] lg:-mt-[450px] translate-y-24 md:translate-y-0 bg-black text-white p-4 md:p-6 text-[5vw] sm:text-xl md:text-4xl font-p5-body border-4 border-[#732424] max-w-[85vw] md:max-w-lg lg:max-w-xl transform -skew-x-6 shadow-[8px_8px_0px_#732424] text-center md:text-left pointer-events-auto relative"
           >
             "It's time to steal some hearts... with some code!"
           </motion.div>
         </div>
       </motion.div>
-      </div>
     </section>
   );
 }

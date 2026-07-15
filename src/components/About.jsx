@@ -57,7 +57,7 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-50px 0px -200px 0px" }}
+          viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
           transition={{ delay: 0.2, duration: 0.6 }}
           className="space-y-6 flex flex-col md:pr-8 lg:pr-12 order-2 md:order-1"
         >
@@ -89,7 +89,7 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, x: 50, rotate: 5 }}
           whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-          viewport={{ once: false, margin: "-50px 0px -200px 0px" }}
+          viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
           transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
           className="order-1 md:order-2 w-[90%] md:w-full mx-auto relative"
         >

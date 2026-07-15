@@ -62,7 +62,7 @@ export default function Footer() {
         <motion.form
           initial={{ opacity: 0, y: 200, rotate: -5 }}
           whileInView={{ opacity: 1, y: 0, rotate: 1 }}
-          viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
+          viewport={{ once: false, margin: "0px 0px 0px 0px" }}
           transition={{ type: "spring", stiffness: 80, damping: 15 }}
           className="bg-white text-black p-8 border-4 border-black shadow-[15px_15px_0px_#732424] flex flex-col space-y-6"
           onSubmit={handleSubmit}

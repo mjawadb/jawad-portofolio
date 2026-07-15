@@ -38,7 +38,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#000000] min-h-screen text-white overflow-x-hidden relative font-p5-body">
+    <div className="bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body">
       <CustomCursor />
       
       {currentView === 'home' && (
