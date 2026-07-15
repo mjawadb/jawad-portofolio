@@ -47,7 +47,7 @@ export default function CustomCursor() {
     <>
       {/* Lingkaran luar yang bergerak lebih lambat (trailing effect) */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 pointer-events-none z-[10000] mix-blend-difference hidden md:flex items-center justify-center overflow-hidden"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 pointer-events-none z-[10000] hidden md:flex items-center justify-center overflow-hidden"
         animate={{
           scale: isHovering ? 2.5 : 1,
           backgroundColor: isHovering ? 'rgba(255,255,255,1)' : 'rgba(255,255,255,0)',
@@ -62,7 +62,7 @@ export default function CustomCursor() {
       />
       {/* Titik dalam yang bergerak lebih cepat */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000] mix-blend-difference hidden md:block"
+        className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[10000] hidden md:block drop-shadow-md"
         animate={{
           scale: isHovering ? 0 : 1
         }}
