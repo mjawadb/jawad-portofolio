@@ -22,23 +22,26 @@ function App() {
     const lenis = new Lenis({
       lerp: 0.05,
       smoothWheel: true,
-      smoothTouch: true,
+      smoothTouch: currentView === 'home',
       touchMultiplier: 1.2,
       wheelMultiplier: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
+    let rafId;
+
     function raf(time) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(rafId);
       lenis.destroy();
     };
-  }, []);
+  }, [currentView]);
 
   return (
     <div className="bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body">
