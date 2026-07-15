@@ -44,7 +44,7 @@ function App() {
   }, [currentView]);
 
   return (
-    <div className="bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body">
+    <div className={`bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body ${currentView === 'home' ? 'touch-none' : ''}`}>
       <CustomCursor />
       
       {currentView === 'home' && (
