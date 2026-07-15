@@ -1,5 +1,5 @@
 import { Link } from 'react-scroll';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
@@ -13,7 +13,9 @@ const navItems = [
 export default function Navbar({ currentView, setView }) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
-  const [isScrolling, setIsScrolling] = useState(false);
+  
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     if (currentView === 'blog') {
@@ -28,10 +30,10 @@ export default function Navbar({ currentView, setView }) {
     if (currentView === 'blog') return;
 
     const handleScroll = () => {
-      if (isScrolling) return;
+      if (isScrollingRef.current) return;
 
       const sections = navItems.filter(item => !item.isView).map(item => item.id);
-      let current = activeSection;
+      let current = null;
 
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -44,8 +46,8 @@ export default function Navbar({ currentView, setView }) {
         }
       }
 
-      if (current !== activeSection) {
-        setActiveSection(current);
+      if (current) {
+        setActiveSection(prev => (prev !== current ? current : prev));
       }
     };
 
@@ -53,7 +55,7 @@ export default function Navbar({ currentView, setView }) {
     handleScroll(); // Trigger once on mount/update
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [currentView, isScrolling, activeSection]);
+  }, [currentView]);
 
   const getScrollDuration = (distance) => {
     const absDist = Math.abs(distance);
@@ -63,14 +65,16 @@ export default function Navbar({ currentView, setView }) {
 
   const handleNavClick = (id) => {
     setActiveSection(id);
-    setIsScrolling(true);
-    const el = document.getElementById(id);
-    let duration = 1250;
-    if (el) {
-      const distance = el.getBoundingClientRect().top;
-      duration = getScrollDuration(distance);
+    isScrollingRef.current = true;
+    
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
     }
-    setTimeout(() => setIsScrolling(false), duration + 100);
+    
+    // Use a fixed max timeout. react-scroll duration is max 2500ms.
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 2600);
   };
 
   return (
