@@ -10,6 +10,7 @@ import { supabase } from '../supabaseClient';
 export default function Blog({ setView }) {
   const scrollRef = useRef(null);
   const [blogs, setBlogs] = useState([]);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -80,7 +81,7 @@ export default function Blog({ setView }) {
           {/* Phone Screen Underlay (Behind the phone) */}
           <div
             ref={scrollRef}
-            className="absolute top-[8%] md:top-[10%] lg:top-[11%] left-[41%] sm:left-[40%] md:left-[40%] w-[22%] sm:w-[23%] md:w-[24%] h-[65%] sm:h-[72%] md:h-[66%] lg:h-[64%] bg-[#d92323] pt-10 pb-4 pl-1 pr-8 sm:pt-16 sm:pb-4 sm:pr-4 sm:pl-2 overflow-y-auto overflow-x-hidden flex flex-col gap-4 sm:gap-6 z-0 pointer-events-auto [&::-webkit-scrollbar]:hidden"
+            className={`absolute top-[8%] md:top-[10%] lg:top-[11%] left-[41%] sm:left-[40%] md:left-[40%] w-[22%] sm:w-[23%] md:w-[24%] h-[65%] sm:h-[72%] md:h-[66%] lg:h-[64%] bg-[#d92323] pt-10 pb-4 pl-1 pr-8 sm:pt-16 sm:pb-4 sm:pr-4 sm:pl-2 overflow-y-auto overflow-x-hidden flex flex-col gap-4 sm:gap-6 z-0 pointer-events-auto [&::-webkit-scrollbar]:hidden transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
             style={{ transform: 'rotate(9deg)', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
             {blogs.length === 0 ? (
@@ -123,7 +124,8 @@ export default function Blog({ setView }) {
           <img
             src={handBlogImg}
             alt="Blog Hand Phone"
-            className="w-full h-auto object-contain object-top drop-shadow-[0_20px_50px_rgba(217,35,35,0.2)] relative z-10 pointer-events-none"
+            onLoad={() => setIsImageLoaded(true)}
+            className={`w-full h-auto object-contain object-top drop-shadow-[0_20px_50px_rgba(217,35,35,0.2)] relative z-10 pointer-events-none transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         </div>
       </motion.div>
