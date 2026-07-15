@@ -102,11 +102,13 @@ export default function TechStack() {
       {/* HTML-based Thunder Parallax Background (Moved behind screentone) */}
       <motion.div 
         style={{ y: thunderY }}
-        animate={{ x: [0, 100, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-0 md:top-1/4 -left-[50%] md:-left-[20%] w-[200%] md:w-[140%] h-[1500px] md:h-[500px] pointer-events-none z-0 flex items-center justify-center rotate-[25deg] md:rotate-12 scale-[1.2] md:scale-100 opacity-40"
       >
-        <div className="relative w-full h-full flex items-center">
+        <motion.div 
+          animate={{ x: [0, 100, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="relative w-full h-full flex items-center"
+        >
           {/* Left section / Top section on mobile */}
           <div className="absolute left-[-10%] md:left-0 top-[20%] md:top-[30%] w-[60%] md:w-[45%] h-[100px] md:h-[150px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[-40deg] skew-y-[5deg]"></div>
           
@@ -134,7 +136,7 @@ export default function TechStack() {
           <div className="block md:hidden absolute left-[-10%] top-[85%] w-[70%] h-[120px] bg-[#d92323] border-4 border-black skew-x-[45deg] -skew-y-[8deg]"></div>
           <div className="block md:hidden absolute left-[35%] top-[95%] w-[60%] h-[150px] bg-[#d92323] border-4 border-black skew-x-[-35deg] rotate-6"></div>
           <div className="block md:hidden absolute left-[65%] top-[82%] w-[15%] h-[60px] bg-[#d92323] border-4 border-black skew-x-[25deg] -rotate-12"></div>
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Screentone Overlay (z-[1] so it overlays the thunder but stays behind content) */}
