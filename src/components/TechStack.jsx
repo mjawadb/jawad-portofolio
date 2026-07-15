@@ -95,13 +95,11 @@ export default function TechStack() {
     offset: ["start end", "end start"]
   });
 
-  const thunderY = useTransform(scrollYProgress, [0, 1], [-200, 200]);
-
   return (
     <section ref={ref} id="tech-stack" className="px-[16px] md:px-[64px] py-24 bg-white text-black clip-slant-reverse mb-20 relative overflow-hidden">
       {/* HTML-based Thunder Parallax Background (Moved behind screentone) */}
       <motion.div 
-        style={{ y: thunderY }}
+
         animate={{ x: [0, 100, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         className="absolute top-0 md:top-1/4 -left-[50%] md:-left-[20%] w-[200%] md:w-[140%] h-[1500px] md:h-[500px] pointer-events-none z-0 flex items-center justify-center rotate-[25deg] md:rotate-12 scale-[1.2] md:scale-100 opacity-40 will-change-transform"
