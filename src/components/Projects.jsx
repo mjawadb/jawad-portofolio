@@ -112,6 +112,7 @@ const ProjectCard = ({ proj, idx }) => {
               }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
               src={proj.video}
+              poster={proj.img}
               preload="none"
               loop
               muted
