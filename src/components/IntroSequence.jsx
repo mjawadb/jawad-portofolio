@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import gedungImg from '../assets/gedung.webp';
+import backImg from '../assets/back.webp';
 
 
 export default function IntroSequence() {
@@ -78,17 +79,13 @@ export default function IntroSequence() {
       </motion.div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-0 w-full flex justify-center z-[100] pointer-events-none">
+      <div className="absolute bottom-10 left-0 w-full flex justify-center z-[100] pointer-events-none opacity-60">
         <div className="flex flex-col items-center justify-center animate-bounce">
-          <span className="text-white font-p5-title text-2xl md:text-3xl tracking-widest drop-shadow-[4px_4px_0_rgba(0,0,0,1)] -skew-x-[12deg] bg-black/20 px-4 py-1 rounded">
-            SCROLL DOWN
-          </span>
-          <svg 
-            width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-            className="mt-2 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
-          >
-            <path d="M12 4L12 20M12 20L4 12M12 20L20 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <img 
+            src={backImg} 
+            alt="Scroll Down" 
+            className="w-16 md:w-24 -rotate-90 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
+          />
         </div>
       </div>
     </motion.div>
