@@ -79,30 +79,30 @@ export default function IntroSequence() {
 
       {/* Scroll Indicator */}
       <motion.div
-        style={{ opacity: charOpacity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[100] pointer-events-none"
+        style={{ x: "-50%" }}
+        className="absolute bottom-[10vh] left-[50%] z-50 pointer-events-none"
       >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.5 }}
+          transition={{ delay: 0.5, duration: 0.5 }}
           className="flex flex-col items-center justify-center"
         >
           <motion.span 
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="text-white font-p5-title text-2xl md:text-3xl tracking-widest drop-shadow-[3px_3px_0_rgba(0,0,0,1)] -skew-x-[10deg]"
-            style={{ WebkitTextStroke: '1px black' }}
+            className="text-white font-p5-title text-3xl md:text-4xl tracking-widest drop-shadow-[4px_4px_0_rgba(0,0,0,1)] -skew-x-[12deg]"
+            style={{ WebkitTextStroke: '2px black' }}
           >
             SCROLL DOWN
           </motion.span>
           <motion.svg 
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut", delay: 0.1 }}
-            width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-            className="mt-2 drop-shadow-[3px_3px_0_rgba(0,0,0,1)]"
+            width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+            className="mt-2 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
           >
-            <path d="M12 4L12 20M12 20L5 13M12 20L19 13" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 4L12 20M12 20L4 12M12 20L20 12" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
           </motion.svg>
         </motion.div>
       </motion.div>
