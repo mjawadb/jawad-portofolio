@@ -1,17 +1,11 @@
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { useEffect, useState } from 'react';
 import gedungImg from '../assets/gedung.webp';
 
 
 export default function IntroSequence() {
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, { stiffness: 80, damping: 20, restDelta: 0.001 });
-  const [mounted, setMounted] = useState(false);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-  
   // As user scrolls from 0 to 800px, character swings/walks across
   // -150% hides it further to the left, 120vw pushes it further to the right.
   const charX = useTransform(smoothScrollY, [0, 800], ['-150%', '120vw']);
@@ -24,13 +18,11 @@ export default function IntroSequence() {
 
   // At 600px scroll, pull the whole red screen up so it's fully gone by 800px
   const screenY = useTransform(smoothScrollY, [600, 800], ['0vh', '-100vh']);
-  
-  if (!mounted) return null;
 
   return (
     <motion.div 
       style={{ y: screenY }}
-      className="fixed top-0 left-0 w-full h-screen bg-[#d92323] z-50 overflow-hidden flex items-center justify-center"
+      className="fixed top-0 left-0 w-full h-screen bg-[#d92323] z-[60] overflow-hidden flex items-center justify-center"
     >
       <div className="absolute inset-0 w-full h-full overflow-hidden screentone-bg opacity-30 mix-blend-overlay"></div>
       
