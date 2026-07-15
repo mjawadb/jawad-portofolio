@@ -22,20 +22,20 @@ export default function IntroSequence() {
   return (
     <motion.div 
       style={{ y: screenY }}
-      className="fixed top-0 left-0 w-full h-screen bg-[#d92323] z-[60] overflow-hidden flex items-center justify-center"
+      className="fixed top-0 left-0 w-full h-screen bg-[#d92323] z-[60] overflow-hidden flex items-center justify-center will-change-transform"
     >
-      <div className="absolute inset-0 w-full h-full overflow-hidden screentone-bg opacity-30 mix-blend-overlay"></div>
+      <div className="absolute inset-0 w-full h-full overflow-hidden screentone-bg opacity-30 z-[0]"></div>
       
       {/* City Silhouette Background */}
       <div 
-        className="absolute inset-0 opacity-30 bg-cover bg-center mix-blend-multiply" 
+        className="absolute inset-0 opacity-30 bg-cover bg-center z-[0]" 
         style={{ backgroundImage: 'url(https://lh3.googleusercontent.com/aida-public/AB6AXuAAYzFKQIn1rZYfQej8gCMWA7OwN3cOvy0odOLBWzbk4tucbB1CTYbkre7alNKuJgMyylIGw4Yha5hcbDWdrAhJaXx5wjl6NJAW94blqGyRLguVv6-2Lvla9ewEwTeWMNSI-zZoHhctSdxONPso5Af8HcBFLHXD2O0165RFisl2TF5qreaavaeGeNwW7ZsypSEFs_n_VzNScbB3Jex9ogEtgoUOm_TbwMi2QUANZDErjzZ2GlNfhEoTzjp08lM7rmLCcwbvwWrLU3I)' }}
       ></div>
 
       {/* Additional Foreground City Layer */}
       <motion.div 
         style={{ x: gedungX, opacity: charOpacity }}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 w-full h-full pointer-events-none will-change-transform"
       >
         <motion.img 
           src={gedungImg}
@@ -59,7 +59,7 @@ export default function IntroSequence() {
           originX: 0.5,
           originY: -2 // Pivot point high above for pendulum effect
         }}
-        className="absolute left-0 top-0 md:-top-[10vh] w-[110vw] sm:w-[85vw] md:w-[80vw] lg:w-[50vw] max-w-[800px] flex flex-col items-center justify-start z-20"
+        className="absolute left-0 top-0 md:-top-[10vh] w-[110vw] sm:w-[85vw] md:w-[80vw] lg:w-[50vw] max-w-[800px] flex flex-col items-center justify-start z-20 will-change-transform"
       >
         {/* The Rope */}
         <div 

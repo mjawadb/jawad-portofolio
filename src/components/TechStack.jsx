@@ -104,7 +104,7 @@ export default function TechStack() {
         style={{ y: thunderY }}
         animate={{ x: [0, 100, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-0 md:top-1/4 -left-[50%] md:-left-[20%] w-[200%] md:w-[140%] h-[1500px] md:h-[500px] pointer-events-none z-0 flex items-center justify-center rotate-[25deg] md:rotate-12 scale-[1.2] md:scale-100 opacity-40"
+        className="absolute top-0 md:top-1/4 -left-[50%] md:-left-[20%] w-[200%] md:w-[140%] h-[1500px] md:h-[500px] pointer-events-none z-0 flex items-center justify-center rotate-[25deg] md:rotate-12 scale-[1.2] md:scale-100 opacity-40 will-change-transform"
       >
         <div className="relative w-full h-full flex items-center">
           {/* Left section / Top section on mobile */}
@@ -138,7 +138,7 @@ export default function TechStack() {
       </motion.div>
 
       {/* Screentone Overlay (z-[1] so it overlays the thunder but stays behind content) */}
-      <div className="absolute inset-0 screentone-bg opacity-10 pointer-events-none mix-blend-multiply z-[1]"></div>
+      <div className="absolute inset-0 screentone-bg opacity-10 pointer-events-none z-[1]"></div>
       
       <div className="mb-16 flex justify-center md:justify-start items-end relative z-10 w-full max-w-7xl mx-auto">
         <h2 className="text-[20vw] sm:text-[14vw] md:text-8xl lg:text-[10rem] leading-none font-p5-title uppercase text-[#d92323] text-center md:text-left inline-block border-b-8 border-black pb-2 md:pb-4 transform -rotate-2">
@@ -163,8 +163,8 @@ export default function TechStack() {
             <div className="flex flex-wrap gap-6">
               {category.skills.map((skill, sIdx) => (
                 <div key={sIdx} className="group relative flex flex-col items-center justify-center">
-                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center transition-transform duration-300 group-hover:scale-125">
-                    <img loading="lazy" src={skill.image} alt={skill.name} className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-85 mix-blend-multiply filter grayscale-[15%] drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]" />
+                  <div className="w-24 h-24 md:w-28 md:h-28 flex items-center justify-center transition-transform duration-300 group-hover:scale-125 will-change-transform">
+                    <img loading="lazy" src={skill.image} alt={skill.name} className="w-20 h-20 md:w-24 md:h-24 object-contain opacity-85 filter grayscale-[15%] drop-shadow-[2px_2px_0px_rgba(0,0,0,0.5)]" />
                   </div>
                   <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 font-['Space_Mono'] text-[12px] font-bold text-white bg-[#353535] px-3 py-1 -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap z-20">
                     {skill.name}
