@@ -22,7 +22,8 @@ function App() {
     const lenis = new Lenis({
       lerp: 0.05,
       smoothWheel: true,
-      smoothTouch: currentView === 'home',
+      syncTouch: true,
+      syncTouchLerp: 0.05,
       touchMultiplier: 1.2,
       wheelMultiplier: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -44,7 +45,7 @@ function App() {
   }, [currentView]);
 
   return (
-    <div className={`bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body ${currentView === 'home' ? 'touch-none' : ''}`}>
+    <div className="bg-[#000000] min-h-screen text-white overflow-x-clip relative font-p5-body">
       <CustomCursor />
       
       {currentView === 'home' && (
