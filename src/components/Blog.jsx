@@ -39,7 +39,7 @@ export default function Blog({ setView }) {
       onWheel={handleWheel}
     >
       {/* Date Image */}
-      <img src={dateImg} alt="Date" className="absolute top-6 sm:top-8 left-4 sm:left-8 z-40 w-32 sm:w-48 md:w-64 h-auto object-contain pointer-events-none drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
+      <img src={dateImg} alt="Date" className="absolute top-12 sm:top-16 left-4 sm:left-12 z-40 w-32 sm:w-48 md:w-64 h-auto object-contain pointer-events-none drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]" />
 
       {/* Back Button */}
       <button
@@ -49,13 +49,13 @@ export default function Blog({ setView }) {
           setTimeout(() => {
             const el = document.getElementById('hero');
             if (el) {
-              const offset = window.innerWidth >= 768 && window.innerWidth < 1024 ? 100 : 0;
-              const y = el.getBoundingClientRect().top + window.scrollY + offset;
-              window.scrollTo({ top: y, behavior: 'instant' });
+              const dynamicOffset = window.innerWidth >= 1024 ? 400 : 250;
+              const y = el.getBoundingClientRect().top + window.scrollY + dynamicOffset;
+              window.scrollTo({ top: y, behavior: 'smooth' });
             }
           }, 50);
         }}
-        className="absolute right-8 bottom-12 md:right-auto md:left-8 md:bottom-8 z-50 -skew-x-[12deg] bg-[#d92323] p-2 sm:p-3 border-4 border-black hover:border-white shadow-[5px_5px_0px_rgba(255,255,255,1)] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all duration-75 flex items-center justify-center glitch-hover-red"
+        className="absolute right-8 bottom-12 md:right-auto md:left-12 md:bottom-12 z-50 -skew-x-[12deg] bg-[#d92323] p-2 sm:p-3 border-4 border-black hover:border-white shadow-[5px_5px_0px_rgba(255,255,255,1)] active:translate-x-[5px] active:translate-y-[5px] active:shadow-none transition-all duration-75 flex items-center justify-center glitch-hover-red"
       >
         <img src={backImg} alt="Back" className="w-10 sm:w-12 md:w-16 h-auto object-contain" />
       </button>
@@ -110,7 +110,7 @@ export default function Blog({ setView }) {
                     <div className="absolute top-1/2 -left-2 sm:-left-3 w-4 h-4 sm:w-6 sm:h-6 bg-black border-l-2 border-b-2 sm:border-l-4 sm:border-b-4 border-white transform -translate-y-1/2 rotate-45"></div>
 
                     <h3 className="text-white font-p5-title text-[14px] sm:text-lg md:text-xl leading-tight skew-x-[12deg] relative z-10">{blog.title}</h3>
-                    <p className="text-gray-300 font-['Space_Mono'] text-[9px] sm:text-xs md:text-sm skew-x-[12deg] relative z-10 mt-0.5">{blog.date}</p>
+                    <p className="text-gray-300 font-p5-body text-[9px] sm:text-xs md:text-sm skew-x-[12deg] relative z-10 mt-0.5">{blog.date}</p>
                   </div>
                 </div>
               )))

@@ -95,7 +95,8 @@ export default function Navbar({ currentView, setView }) {
                 onClick={() => {
                   setView('blog');
                   window.history.pushState({}, '', '/blog');
-                  window.scrollTo(0,0);
+                  const offset = window.innerWidth >= 1024 ? 400 : 250;
+                  window.scrollTo({ top: offset, behavior: 'smooth' });
                 }}
                 className={`relative px-3 py-1 -skew-x-[12deg] cursor-pointer transition-all duration-75 flex items-center justify-center ${
                   currentView === 'blog' 
@@ -117,7 +118,7 @@ export default function Navbar({ currentView, setView }) {
                 key={item.id}
                 to={item.id}
                 onClick={() => handleNavClick(item.id)}
-                smooth="easeInOutQuint" duration={getScrollDuration} offset={item.offset}
+                smooth="easeInOutQuint" duration={getScrollDuration} offset={item.id === 'hero' ? (window.innerWidth >= 1024 ? 400 : 250) : item.offset}
                 className={`relative px-3 py-1 -skew-x-[12deg] cursor-pointer transition-all duration-75 flex items-center justify-center ${
                   activeSection === item.id 
                     ? "text-white scale-110" 
@@ -142,7 +143,8 @@ export default function Navbar({ currentView, setView }) {
                   setTimeout(() => {
                     const el = document.getElementById(item.id);
                     if (el) {
-                      const y = el.getBoundingClientRect().top + window.scrollY + item.offset;
+                      const dynamicOffset = item.id === 'hero' ? (window.innerWidth >= 1024 ? 400 : 250) : item.offset;
+                      const y = el.getBoundingClientRect().top + window.scrollY + dynamicOffset;
                       window.scrollTo({ top: y, behavior: 'smooth' });
                     }
                   }, 100);
@@ -185,7 +187,8 @@ export default function Navbar({ currentView, setView }) {
                       setIsOpen(false);
                       setView('blog');
                       window.history.pushState({}, '', '/blog');
-                      window.scrollTo(0,0);
+                      const offset = window.innerWidth >= 1024 ? 400 : 250;
+                      window.scrollTo({ top: offset, behavior: 'smooth' });
                     }}
                     className={`relative px-6 py-2 -skew-x-[12deg] text-center w-full cursor-pointer transition-all border-2 ${
                       currentView === 'blog'
@@ -206,7 +209,7 @@ export default function Navbar({ currentView, setView }) {
                   <Link
                     key={item.id}
                     to={item.id}
-                    smooth="easeInOutQuint" duration={getScrollDuration} offset={window.innerWidth >= 768 && window.innerWidth < 1024 && item.id === 'hero' ? 100 : item.offset}
+                    smooth="easeInOutQuint" duration={getScrollDuration} offset={item.id === 'hero' ? (window.innerWidth >= 1024 ? 400 : 250) : item.offset}
                     onClick={() => {
                       setIsOpen(false);
                       handleNavClick(item.id);
@@ -236,7 +239,8 @@ export default function Navbar({ currentView, setView }) {
                       setTimeout(() => {
                         const el = document.getElementById(item.id);
                         if (el) {
-                          const y = el.getBoundingClientRect().top + window.scrollY + item.offset;
+                          const dynamicOffset = item.id === 'hero' ? (window.innerWidth >= 1024 ? 400 : 250) : item.offset;
+                          const y = el.getBoundingClientRect().top + window.scrollY + dynamicOffset;
                           window.scrollTo({ top: y, behavior: 'smooth' });
                         }
                       }, 100);

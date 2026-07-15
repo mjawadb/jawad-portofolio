@@ -106,7 +106,7 @@ export default function About() {
             }}
             viewport={{ once: false }}
             transition={isWiggling ? { duration: 0.5 } : { type: 'spring', stiffness: 150, delay: 0.4 }}
-            className="absolute -top-12 -left-2 md:-top-16 md:left-0 lg:-top-20 lg:left-4 w-32 md:w-40 lg:w-48 z-30 drop-shadow-[5px_5px_0px_rgba(0,0,0,0.8)]"
+            className="absolute -top-12 -left-2 md:-top-16 md:left-0 lg:-top-20 lg:left-4 w-32 md:w-40 lg:w-48 z-30 drop-shadow-[5px_5px_0px_rgba(0,0,0,0.8)] will-change-transform"
           />
 
           <div className="relative p-4 md:pl-8 skew-pulse">

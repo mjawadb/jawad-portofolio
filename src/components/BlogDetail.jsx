@@ -38,6 +38,16 @@ export default function BlogDetail({ setView, blogId }) {
     setView('blog');
   };
 
+  const getEmbedUrl = (url) => {
+    if (!url) return '';
+    if (url.includes('/embed/')) return url;
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})/);
+    if (match && match[1]) {
+      return `https://www.youtube.com/embed/${match[1]}`;
+    }
+    return url;
+  };
+
   const titleText = blogData?.title || "LOADING...";
   const redIndices = useMemo(() => {
     const indices = [];
@@ -94,11 +104,23 @@ export default function BlogDetail({ setView, blogId }) {
             {/* Image Container */}
             <div className="relative z-10 bg-black border-4 sm:border-8 border-white p-2 sm:p-3 w-full">
               <div className="w-full h-48 sm:h-72 md:h-80 lg:h-96 overflow-hidden relative" style={{ clipPath: 'polygon(1% 0, 100% 2%, 99% 100%, 0 98%)' }}>
-                <img 
-                  src={blogData?.image_url || heroImg} 
-                  alt="Blog Thumbnail" 
-                  className="w-full h-full object-cover"
-                />
+                {blogData?.is_youtube && blogData?.youtube_link ? (
+                  <iframe 
+                    src={getEmbedUrl(blogData.youtube_link)} 
+                    title="YouTube video player" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerPolicy="strict-origin-when-cross-origin" 
+                    allowFullScreen
+                    className="w-full h-full object-cover"
+                  ></iframe>
+                ) : (
+                  <img 
+                    src={blogData?.image_url || heroImg} 
+                    alt="Blog Thumbnail" 
+                    className="w-full h-full object-cover"
+                  />
+                )}
               </div>
             </div>
             
@@ -121,17 +143,19 @@ export default function BlogDetail({ setView, blogId }) {
           </motion.div>
 
             {/* Content Area */}
-            <div className="relative p-6 sm:p-10 font-p5-body w-full mt-4">
-              {/* Paper Background Element */}
-              <div className="absolute inset-0 bg-[#f4f4f4] border-2 sm:border-4 border-black shadow-[15px_15px_0px_#d92323] -z-10"></div>
-              
-              {/* Text Content */}
-              <div className="relative z-10 text-xl sm:text-2xl md:text-3xl leading-relaxed text-black font-semibold max-w-4xl mx-auto space-y-6">
-                <p className="first-letter:text-5xl sm:first-letter:text-7xl first-letter:font-p5-title first-letter:text-[#d92323] first-letter:mr-2 first-letter:float-left">
-                  {blogData?.description || "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla porttitor accumsan tincidunt."}
-                </p>
+            {blogData?.description && (
+              <div className="relative p-6 sm:p-10 font-p5-body w-full mt-4">
+                {/* Paper Background Element */}
+                <div className="absolute inset-0 bg-[#f4f4f4] border-2 sm:border-4 border-black shadow-[15px_15px_0px_#d92323] -z-10"></div>
+                
+                {/* Text Content */}
+                <div className="relative z-10 text-xl sm:text-2xl md:text-3xl leading-relaxed text-black font-semibold max-w-4xl mx-auto space-y-6">
+                  <p className="first-letter:text-5xl sm:first-letter:text-7xl first-letter:font-p5-title first-letter:text-[#d92323] first-letter:mr-2 first-letter:float-left">
+                    {blogData.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
         </div>
       </div>
     </div>

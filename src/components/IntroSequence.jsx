@@ -5,7 +5,7 @@ import backImg from '../assets/back.webp';
 
 export default function IntroSequence() {
   const { scrollY } = useScroll();
-  const smoothScrollY = useSpring(scrollY, { stiffness: 80, damping: 20, restDelta: 0.001 });
+  const smoothScrollY = useSpring(scrollY, { stiffness: 20, damping: 15, restDelta: 0.001 });
 
   // As user scrolls from 0 to 800px, character swings/walks across
   // -150% hides it further to the left, 120vw pushes it further to the right.

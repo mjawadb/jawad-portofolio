@@ -11,8 +11,8 @@ function ShaderBackground() {
     if (!canvas) return;
 
     function syncSize() {
-      const w = canvas.clientWidth || 1280;
-      const h = canvas.clientHeight || 720;
+      const w = Math.floor((canvas.clientWidth || 1280) / 2);
+      const h = Math.floor((canvas.clientHeight || 720) / 2);
       if (canvas.width !== w || canvas.height !== h) {
         canvas.width = w;
         canvas.height = h;
@@ -32,7 +32,7 @@ void main() {
   v_texCoord = a_position * 0.5 + 0.5;
   gl_Position = vec4(a_position, 0.0, 1.0);
 }`;
-    const fs = `precision highp float;
+    const fs = `precision mediump float;
 varying vec2 v_texCoord;
 uniform float u_time;
 uniform vec2 u_resolution;
@@ -179,7 +179,7 @@ export default function Hero() {
 
 
   return (
-    <section id="hero" ref={ref} className="relative w-full flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] pt-48 md:pt-[250px] lg:pt-[350px] pb-40 md:pb-10 clip-slant mb-20 bg-black">
+    <section id="hero" ref={ref} className="relative w-full flex items-center justify-center overflow-hidden px-[16px] md:px-[64px] pt-[250px] md:pt-[350px] lg:pt-[450px] pb-40 md:pb-10 clip-slant mb-20 bg-black">
       <ShaderBackground />
 
       {/* Background Hero Content (Stream Start Image) */}
@@ -203,7 +203,7 @@ export default function Hero() {
                 opacity: 1, scale: 1, rotate: -6, y: 0
               }}
               transition={isWiggling ? { duration: 0.6 } : { type: 'spring', stiffness: 150, damping: 10 }}
-              className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none -mt-16 md:mt-[450px] lg:mt-[400px] mb-8 drop-shadow-[10px_10px_0px_rgba(0,0,0,0.5)] -ml-[10%] sm:-ml-0 md:-ml-[50%]"
+              className="w-[130%] sm:w-[110%] md:w-[180%] max-w-none mt-12 md:mt-[450px] lg:mt-[600px] mb-8 drop-shadow-[10px_10px_0px_rgba(0,0,0,0.5)] -ml-[10%] sm:-ml-0 md:-ml-[50%] will-change-transform"
             />
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function Hero() {
         initial={{ x: -150, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 90, delay: 0.2 }}
-        className="absolute bottom-[-20px] md:bottom-[-60px] lg:bottom-[-70px] left-[-5%] sm:left-[0%] md:left-[5%] w-[160%] sm:w-[130%] md:w-[100vw] lg:w-[70vw] max-w-none max-h-none md:max-h-[110vh] object-contain object-left-bottom pointer-events-none drop-shadow-[20px_20px_0px_rgba(0,0,0,0.5)] z-20"
+        className="absolute bottom-[-20px] md:bottom-[-60px] lg:bottom-[-70px] left-[-5%] sm:left-[0%] md:left-[5%] w-[160%] sm:w-[130%] md:w-[100vw] lg:w-[70vw] max-w-none max-h-none md:max-h-[110vh] object-contain object-left-bottom pointer-events-none drop-shadow-[20px_20px_0px_rgba(0,0,0,0.5)] z-20 will-change-transform"
       />
 
       {/* Foreground Hero Content (Text Box) */}

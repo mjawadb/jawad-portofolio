@@ -23,6 +23,8 @@ function App() {
       lerp: 0.07,
       wheelMultiplier: 0.9,
       smoothWheel: true,
+      smoothTouch: true,
+      touchMultiplier: 2,
     });
 
     function raf(time) {

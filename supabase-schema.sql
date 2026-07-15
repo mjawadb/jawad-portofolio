@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS public.blogs (
     color text default 'bg-red-500',
     description text,
     image_url text,
+    is_youtube boolean default false,
+    youtube_link text,
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
@@ -32,9 +34,9 @@ CREATE POLICY "Allow public read access on blogs" ON public.blogs FOR SELECT USI
 CREATE POLICY "Allow public insert on messages" ON public.messages FOR INSERT WITH CHECK (true);
 
 -- 4. Insert a Dummy Blog Post to test
-INSERT INTO public.blogs (title, date, color, description, image_url)
+INSERT INTO public.blogs (title, date, color, description, image_url, is_youtube, youtube_link)
 VALUES 
-('Stealing the First Heart', '14/07/2026', 'bg-red-500', 'Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla porttitor accumsan tincidunt.', null);
+('Stealing the First Heart', '14/07/2026', 'bg-red-500', 'Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Nulla porttitor accumsan tincidunt.', null, false, null);
 
 -- 5. Auto-Cleanup Script for Messages (Spam/Storage Protection)
 -- Create a function to clean up old messages and keep size in check
