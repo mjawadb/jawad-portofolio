@@ -61,6 +61,18 @@ export default function Navbar({ currentView, setView }) {
     return Math.min(Math.max(absDist * 0.4 + 800, 1000), 2500);
   };
 
+  const handleNavClick = (id) => {
+    setActiveSection(id);
+    setIsScrolling(true);
+    const el = document.getElementById(id);
+    let duration = 1250;
+    if (el) {
+      const distance = el.getBoundingClientRect().top;
+      duration = getScrollDuration(distance);
+    }
+    setTimeout(() => setIsScrolling(false), duration + 100);
+  };
+
   return (
     <>
       <nav 
@@ -100,11 +112,7 @@ export default function Navbar({ currentView, setView }) {
               <Link 
                 key={item.id}
                 to={item.id}
-                onClick={() => {
-                  setActiveSection(item.id);
-                  setIsScrolling(true);
-                  setTimeout(() => setIsScrolling(false), 1250);
-                }}
+                onClick={() => handleNavClick(item.id)}
                 smooth="easeInOutQuint" duration={getScrollDuration} offset={item.offset}
                 className={`relative px-3 py-1 -skew-x-[12deg] cursor-pointer transition-all duration-75 flex items-center justify-center ${
                   activeSection === item.id 
@@ -197,9 +205,7 @@ export default function Navbar({ currentView, setView }) {
                     smooth="easeInOutQuint" duration={getScrollDuration} offset={window.innerWidth >= 768 && window.innerWidth < 1024 && item.id === 'hero' ? 100 : item.offset}
                     onClick={() => {
                       setIsOpen(false);
-                      setActiveSection(item.id);
-                      setIsScrolling(true);
-                      setTimeout(() => setIsScrolling(false), 1250);
+                      handleNavClick(item.id);
                     }}
                     className={`relative px-6 py-2 -skew-x-[12deg] text-center w-full cursor-pointer transition-all border-2 ${
                       activeSection === item.id
