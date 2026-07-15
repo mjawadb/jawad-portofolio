@@ -67,14 +67,14 @@ export default function Blog({ setView }) {
       ></div>
 
       {/* Screentone dotted background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden screentone-bg opacity-30 mix-blend-overlay"></div>
+      <div className="absolute inset-0 w-full h-full overflow-hidden screentone-bg opacity-30 z-[0]"></div>
 
       {/* Hand holding phone/blog with slide up animation */}
       <motion.div
         initial={{ y: "100%", opacity: 0 }}
         animate={{ y: "0%", opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 w-full h-[100dvh] flex justify-center items-start pt-[8vh] md:pt-0 mt-0 md:-mt-[5vh]"
+        className="relative z-10 w-full h-[100dvh] flex justify-center items-start pt-[8vh] md:pt-0 mt-0 md:-mt-[5vh] will-change-transform"
       >
         <div className="relative w-[220%] sm:w-[180%] md:w-[150%] lg:w-[120%] xl:w-full max-w-[1400px] flex-shrink-0">
           {/* Phone Screen Underlay (Behind the phone) */}

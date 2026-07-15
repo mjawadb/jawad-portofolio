@@ -63,7 +63,7 @@ export default function BlogDetail({ setView, blogId }) {
   return (
     <div className="min-h-screen w-full relative bg-white overflow-hidden text-black font-p5-body">
       {/* Screentone Overlay */}
-      <div className="absolute inset-0 screentone-bg opacity-10 pointer-events-none mix-blend-multiply z-[1]"></div>
+      <div className="absolute inset-0 screentone-bg opacity-10 pointer-events-none z-[1]"></div>
       
       {/* Container */}
       <div className="relative z-10 w-full h-full min-h-screen flex flex-col">
@@ -86,7 +86,7 @@ export default function BlogDetail({ setView, blogId }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full md:w-4/5 lg:w-full relative mt-4 sm:mt-8"
+            className="w-full md:w-4/5 lg:w-full relative mt-4 sm:mt-8 will-change-transform"
           >
             {/* Red Underlay / Shadow */}
             <div className="absolute inset-0 bg-[#d92323] transform translate-x-3 translate-y-3 sm:translate-x-6 sm:translate-y-6 -skew-x-[6deg] z-0"></div>
@@ -113,7 +113,7 @@ export default function BlogDetail({ setView, blogId }) {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="self-center mt-6 sm:mt-10 mb-2 z-20 w-full px-4 text-center"
+            className="self-center mt-6 sm:mt-10 mb-2 z-20 w-full px-4 text-center will-change-transform"
           >
             <h1 className="text-white font-p5-title text-4xl sm:text-6xl md:text-7xl uppercase">
               <RansomText text={titleText} redIndices={redIndices} className="justify-center" />
