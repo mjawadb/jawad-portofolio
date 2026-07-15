@@ -47,6 +47,7 @@ const ProjectCard = ({ proj, idx }) => {
   const videoRef = useRef(null);
   const isInView = useInView(ref, { margin: "-15% 0px -15% 0px", amount: 0.3 });
   const [isHovered, setIsHovered] = useState(false);
+  const [hasPlayedMobile, setHasPlayedMobile] = useState(false);
 
   useEffect(() => {
     let timeout;
@@ -55,13 +56,14 @@ const ProjectCard = ({ proj, idx }) => {
       if (isInView) {
         timeout = setTimeout(() => {
           setIsHovered(true);
-        }, 600);
-      } else {
+          setHasPlayedMobile(true);
+        }, 300); // reduced timeout for snappier feel
+      } else if (!hasPlayedMobile) {
         setIsHovered(false);
       }
     }
     return () => clearTimeout(timeout);
-  }, [isInView]);
+  }, [isInView, hasPlayedMobile]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -113,7 +115,6 @@ const ProjectCard = ({ proj, idx }) => {
               transition={{ duration: 0.5, ease: "easeInOut" }}
               src={proj.video}
               poster={proj.img}
-              preload="none"
               loop
               muted
               playsInline
