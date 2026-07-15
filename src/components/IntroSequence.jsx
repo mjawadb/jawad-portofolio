@@ -79,12 +79,16 @@ export default function IntroSequence() {
       </motion.div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-0 w-full flex justify-center z-[100] pointer-events-none opacity-60">
+      <div 
+        className="absolute left-0 w-full flex justify-center pointer-events-none"
+        style={{ bottom: '15vh', zIndex: 9999 }}
+      >
         <div className="flex flex-col items-center justify-center animate-bounce">
           <img 
             src={backImg} 
             alt="Scroll Down" 
-            className="w-16 md:w-24 -rotate-90 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
+            className="w-16 md:w-20 drop-shadow-[4px_4px_0_rgba(0,0,0,1)]"
+            style={{ transform: 'rotate(-90deg)', opacity: 0.8 }}
           />
         </div>
       </div>
