@@ -28,9 +28,11 @@ ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
 
 -- Allow anyone to read blogs
+DROP POLICY IF EXISTS "Allow public read access on blogs" ON public.blogs;
 CREATE POLICY "Allow public read access on blogs" ON public.blogs FOR SELECT USING (true);
 
 -- Allow anyone to insert messages (so the contact form works without login)
+DROP POLICY IF EXISTS "Allow public insert on messages" ON public.messages;
 CREATE POLICY "Allow public insert on messages" ON public.messages FOR INSERT WITH CHECK (true);
 
 -- 4. Insert a Dummy Blog Post to test
@@ -63,3 +65,35 @@ CREATE EXTENSION IF NOT EXISTS pg_cron;
 -- Jadwalkan fungsi cleanup untuk berjalan otomatis setiap hari pada jam 00:00 (tengah malam)
 -- Dengan berjalan tiap hari, database akan dicek terus agar tidak kepenuhan.
 SELECT cron.schedule('cleanup-messages-daily', '0 0 * * *', $$ SELECT cleanup_old_messages(); $$);
+
+-- ==============================================================================
+-- 6. QUERY UNTUK MERESET DAN MERAPIKAN ID (Jalankan sekali saja jika benar-benar perlu)
+-- Ganti 'messages' dengan nama tabel kamu yang sebenarnya (misal: 'blogs' atau 'messages')
+-- ==============================================================================
+
+-- Memperbarui ID agar berurut (1, 2, 3, dst)
+WITH cte AS (
+    SELECT id, row_number() OVER (ORDER BY id) as new_id
+    FROM messages -- GANTI NAMA TABEL DI SINI
+)
+UPDATE messages -- GANTI NAMA TABEL DI SINI
+SET id = cte.new_id
+FROM cte
+WHERE messages.id = cte.id;
+
+-- Setelah ID dirapikan, kita harus mengatur ulang sequence auto-incrementnya
+-- agar data baru yang masuk tidak bentrok.
+SELECT setval(
+    pg_get_serial_sequence('messages', 'id'), -- GANTI NAMA TABEL DI SINI
+    (SELECT MAX(id) FROM messages)            -- GANTI NAMA TABEL DI SINI
+);
+
+/* 
+CATATAN PENTING TENTANG DATABASE (PostgreSQL/Supabase):
+
+1. ID yang bolong-bolong (gaps) setelah ada data yang dihapus adalah hal yang SANGAT WAJAR dan NORMAL di database.
+2. Sangat TIDAK DISARANKAN membuat sistem otomatis (Trigger) yang mengubah ID secara massal setiap kali ada data yang dihapus. Alasannya:
+   - ID berfungsi sebagai identitas unik. Jika ID berubah-ubah, akan merusak relasi dengan tabel lain (Foreign Keys).
+   - Memakan performa yang berat jika datanya sudah banyak karena harus mengupdate ribuan baris setiap kali 1 data dihapus.
+3. Jika kamu butuh nomor urut untuk ditampilkan di UI (misal: nomor 1, 2, 3 di tabel HTML), lebih baik gunakan index dari array di frontend (React), bukan menggunakan ID dari database.
+*/

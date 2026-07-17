@@ -106,7 +106,7 @@ export default function TechStack() {
   return (
     <section ref={ref} id="tech-stack" className="px-[16px] md:px-[64px] py-24 bg-white text-black clip-slant-reverse mb-20 relative overflow-hidden">
       {/* HTML-based Thunder Parallax Background (Moved behind screentone) */}
-      <motion.div 
+      <motion.div
 
         animate={{ x: [0, 100, 0] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -115,13 +115,13 @@ export default function TechStack() {
         <div className="relative w-full h-full flex items-center">
           {/* Left section / Top section on mobile */}
           <div className="absolute left-[-10%] md:left-0 top-[20%] md:top-[30%] w-[60%] md:w-[45%] h-[100px] md:h-[150px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[-40deg] skew-y-[5deg]"></div>
-          
+
           {/* Middle jagged cut */}
           <div className="absolute left-[20%] md:left-[35%] top-[35%] md:top-[15%] w-[50%] md:w-[35%] h-[150px] md:h-[200px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[50deg] -skew-y-[10deg]"></div>
-          
+
           {/* Right section / Bottom section on mobile */}
           <div className="absolute left-[50%] md:left-[60%] top-[55%] md:top-[40%] w-[60%] md:w-[45%] h-[120px] md:h-[140px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[-35deg] skew-y-[8deg]"></div>
-          
+
           {/* Accent splatters/sparks */}
           <div className="absolute left-[10%] md:left-[25%] top-[10%] md:top-[10%] w-[15%] md:w-[8%] h-[50px] md:h-[60px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[45deg] -rotate-12"></div>
           <div className="absolute left-[40%] md:left-[55%] top-[70%] md:top-[70%] w-[20%] md:w-[12%] h-[70px] md:h-[80px] bg-[#d92323] border-4 md:border-8 border-black skew-x-[-45deg] rotate-6"></div>
@@ -130,7 +130,7 @@ export default function TechStack() {
           {/* Extra bottom thunder elements specifically to fill medium screen vertical gaps */}
           <div className="hidden md:block lg:hidden absolute left-[-5%] top-[125%] w-[45%] h-[120px] bg-[#d92323] border-8 border-black skew-x-[40deg] -skew-y-[5deg]"></div>
           <div className="hidden md:block lg:hidden absolute left-[45%] top-[105%] w-[60%] h-[160px] bg-[#d92323] border-8 border-black skew-x-[-45deg] skew-y-[10deg]"></div>
-          
+
           {/* Extra bottom sparks */}
           <div className="hidden md:block lg:hidden absolute left-[15%] top-[145%] w-[12%] h-[50px] bg-[#d92323] border-8 border-black skew-x-[-30deg] -rotate-12"></div>
           <div className="hidden md:block lg:hidden absolute left-[60%] top-[135%] w-[15%] h-[80px] bg-[#d92323] border-8 border-black skew-x-[40deg] rotate-12"></div>
@@ -145,7 +145,7 @@ export default function TechStack() {
 
       {/* Screentone Overlay (z-[1] so it overlays the thunder but stays behind content) */}
       <div className="absolute inset-0 screentone-bg opacity-10 pointer-events-none z-[1]"></div>
-      
+
       <div className="mb-16 flex justify-center md:justify-start items-end relative z-10 w-full max-w-7xl mx-auto">
         <h2 className="text-[20vw] sm:text-[14vw] md:text-8xl lg:text-[10rem] leading-none font-p5-title uppercase text-[#d92323] text-center md:text-left inline-block border-b-8 border-black pb-2 md:pb-4 transform -rotate-2">
           <RansomText text="FIELD SKILLS" whiteChars={['F', 'E', 'K', 'S']} redIndices={[6]} />
@@ -154,25 +154,25 @@ export default function TechStack() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full max-w-7xl mx-auto relative z-10">
         {skillCategories.map((category, idx) => (
-          <motion.div 
+          <motion.div
             key={idx}
             className="flex flex-col gap-6 w-full will-change-transform"
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: isMobile ? "50px 0px 50px 0px" : "0px 0px -25px 0px" }}
-            transition={{ 
-              delay: getDelay(idx), 
+            transition={{
+              delay: getDelay(idx),
               type: isMobile ? 'tween' : 'spring',
               duration: isMobile ? 0.4 : undefined,
               ease: isMobile ? 'easeOut' : undefined,
-              stiffness: 100, 
-              damping: 20 
+              stiffness: 100,
+              damping: 20
             }}
           >
             <h3 className={`font-p5-title-second text-xl md:text-2xl uppercase self-start ${category.headerClass}`}>
               {category.name}
             </h3>
-            
+
             <div className="flex flex-wrap gap-6">
               {category.skills.map((skill, sIdx) => (
                 <div key={sIdx} className="group relative flex flex-col items-center justify-center">

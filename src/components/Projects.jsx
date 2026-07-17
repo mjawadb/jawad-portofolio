@@ -17,7 +17,8 @@ const projects = [
     img: escapeFromHellImg,
     video: vid1,
     link: "https://mjawadb.itch.io/escape-from-hell-pc",
-    imgClass: "object-center"
+    imgClass: "object-center",
+    theme: "white"
   },
   {
     title: "Zombie Beatdown",
@@ -25,7 +26,8 @@ const projects = [
     img: zombieBeatdownImg,
     video: vid2,
     link: "https://mjawadb.itch.io/zombie-beatdown",
-    imgClass: "object-top"
+    imgClass: "object-top",
+    theme: "red"
   },
   {
     title: "Mario 3D",
@@ -33,15 +35,18 @@ const projects = [
     img: mario3dImg,
     video: vid3,
     link: "https://www.tiktok.com/@mjawaadb/video/7360725369554554118",
-    imgClass: "object-center"
-  }
+    imgClass: "object-center",
+    theme: "white"
+  },
 ];
 
 const ProjectCard = ({ proj, idx }) => {
   const rotClass = idx % 2 === 0 ? '-rotate-1' : 'rotate-2';
   const skewClass = idx % 2 === 0 ? 'skew-y-1' : '-skew-y-2';
   const shadowSkew = idx % 2 === 0 ? '-skew-y-3' : 'skew-y-3';
-  const textBg = idx === 1 ? 'bg-[#d92323] text-white' : 'bg-white text-black';
+
+  // Use theme from the project object. Default to white if not specified.
+  const textBg = proj.theme === 'red' ? 'bg-[#d92323] text-white' : 'bg-white text-black';
 
   const ref = useRef(null);
   const videoRef = useRef(null);
@@ -76,22 +81,28 @@ const ProjectCard = ({ proj, idx }) => {
 
   const isMobile = window.innerWidth < 768;
 
+  const getDelay = (idx) => {
+    if (isMobile) return 0;
+    // Desktop has 3 columns (md and up), so modulo 3
+    return (idx % 3) * 0.2;
+  };
+
   return (
     <motion.div
       className="will-change-transform"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: isMobile ? "50px 0px 50px 0px" : "-50px 0px -50px 0px" }}
-      transition={{ 
-        delay: isMobile ? 0 : idx * 0.2, 
+      viewport={{ once: false, margin: isMobile ? "50px 0px 50px 0px" : "0px 0px -25px 0px" }}
+      transition={{
+        delay: getDelay(idx),
         type: isMobile ? 'tween' : 'spring',
         duration: isMobile ? 0.4 : undefined,
         ease: isMobile ? 'easeOut' : undefined,
-        stiffness: 100, 
-        damping: 20 
+        stiffness: 100,
+        damping: 20
       }}
     >
-      <motion.a 
+      <motion.a
         ref={ref}
         href={proj.link}
         target="_blank"
@@ -103,19 +114,19 @@ const ProjectCard = ({ proj, idx }) => {
       >
         <div className="relative mb-6">
           <div className={`absolute inset-0 bg-[#d92323] ${shadowSkew} transform transition-transform duration-300 -z-10 ${isHovered ? 'translate-x-6 translate-y-6' : 'translate-x-3 translate-y-3'}`}></div>
-          
+
           <div className={`bg-black border-4 border-black ${skewClass} overflow-hidden h-[60vw] sm:h-64 shadow-2xl relative`}>
-            <motion.img 
+            <motion.img
               variants={{
                 initial: { opacity: 1, scale: 1 },
                 hover: { opacity: 0, scale: 1.05 }
               }}
               transition={{ duration: 0.5, ease: "easeInOut" }}
-              src={proj.img} 
+              src={proj.img}
               alt={proj.title}
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${proj.imgClass || 'object-center'}`}
             />
-            <motion.video 
+            <motion.video
               ref={videoRef}
               variants={{
                 initial: { opacity: 0, scale: 1.1 },
@@ -145,17 +156,19 @@ export default function Projects() {
   return (
     <section id="projects" className="w-full pt-10 pb-20 px-[16px] md:px-[64px] relative mb-20 overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-full screentone-bg opacity-5 -z-10"></div>
-      
+
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="mb-10 flex justify-center md:justify-start items-end gap-4">
           <h2 className="text-[18vw] sm:text-[14vw] md:text-8xl lg:text-[8rem] font-p5-title uppercase text-white border-b-8 border-[#d92323] leading-none text-center md:text-left pb-2 md:pb-4 transform -skew-x-12 rotate-6 md:rotate-2">
-            <RansomText text="3 SELECTED PROJECTS" redChars={['L', 'C', 'P', 'R']} />
+            <RansomText text="SELECTED PROJECTS" redChars={['L', 'C', 'P', 'R']} />
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+        <div className="flex flex-wrap justify-center gap-16 md:gap-8">
           {projects.map((proj, idx) => (
-            <ProjectCard key={idx} proj={proj} idx={idx} />
+            <div key={idx} className="w-full md:w-[calc((100%-4rem)/3)]">
+              <ProjectCard proj={proj} idx={idx} />
+            </div>
           ))}
         </div>
       </div>
