@@ -20,7 +20,7 @@ This portfolio is built using modern web technologies to ensure optimal performa
 ## 🌐 Live Access
 
 You can access and view the live version of this portfolio here:
-👉 **[https://jawad-portfolio.example.com](https://jawad-portofolio.vercel.app)**
+👉 **[https://jawad-portofolio.vercel.app](https://jawad-portofolio.vercel.app)**
 
 ## 📜 License
 
