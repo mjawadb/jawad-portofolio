@@ -13,6 +13,11 @@ export default function Blog({ setView }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+    // Lock body scroll to prevent the main page from scrolling on mobile
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
     const fetchBlogs = async () => {
       const { data, error } = await supabase
         .from('blogs')
@@ -26,6 +31,11 @@ export default function Blog({ setView }) {
       }
     };
     fetchBlogs();
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
   }, []);
 
   const handleWheel = (e) => {

@@ -95,6 +95,14 @@ export default function TechStack() {
     offset: ["start end", "end start"]
   });
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
+  const getDelay = (idx) => {
+    if (isMobile) return 0;
+    const isTablet = typeof window !== 'undefined' && window.innerWidth >= 768 && window.innerWidth < 1024;
+    return isTablet ? (idx % 2) * 0.15 : (idx % 3) * 0.15;
+  };
+
   return (
     <section ref={ref} id="tech-stack" className="px-[16px] md:px-[64px] py-24 bg-white text-black clip-slant-reverse mb-20 relative overflow-hidden">
       {/* HTML-based Thunder Parallax Background (Moved behind screentone) */}
@@ -148,11 +156,18 @@ export default function TechStack() {
         {skillCategories.map((category, idx) => (
           <motion.div 
             key={idx}
+            className="flex flex-col gap-6 w-full will-change-transform"
             initial={{ opacity: 0, y: 100 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
-            transition={{ delay: category.delay, type: 'spring', stiffness: 100, damping: 20 }}
-            className="flex flex-col gap-6 w-full"
+            viewport={{ once: false, margin: isMobile ? "50px 0px 50px 0px" : "0px 0px -25px 0px" }}
+            transition={{ 
+              delay: getDelay(idx), 
+              type: isMobile ? 'tween' : 'spring',
+              duration: isMobile ? 0.4 : undefined,
+              ease: isMobile ? 'easeOut' : undefined,
+              stiffness: 100, 
+              damping: 20 
+            }}
           >
             <h3 className={`font-p5-title-second text-xl md:text-2xl uppercase self-start ${category.headerClass}`}>
               {category.name}

@@ -74,12 +74,22 @@ const ProjectCard = ({ proj, idx }) => {
     }
   }, [isHovered, isInView]);
 
+  const isMobile = window.innerWidth < 768;
+
   return (
     <motion.div
+      className="will-change-transform"
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
-      transition={{ delay: idx * 0.2, type: 'spring', stiffness: 100, damping: 20 }}
+      viewport={{ once: false, margin: isMobile ? "50px 0px 50px 0px" : "-50px 0px -50px 0px" }}
+      transition={{ 
+        delay: isMobile ? 0 : idx * 0.2, 
+        type: isMobile ? 'tween' : 'spring',
+        duration: isMobile ? 0.4 : undefined,
+        ease: isMobile ? 'easeOut' : undefined,
+        stiffness: 100, 
+        damping: 20 
+      }}
     >
       <motion.a 
         ref={ref}

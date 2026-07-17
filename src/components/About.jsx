@@ -15,7 +15,7 @@ export default function About() {
   }, []);
 
   const photoRefMobile = useRef(null);
-  const isPhotoInViewMobile = useInView(photoRefMobile, { margin: "-15% 0px -15% 0px", amount: 0.3 });
+  const isPhotoInViewMobile = useInView(photoRefMobile, { margin: "-50px 0px -50px 0px", amount: 0.2 });
   
   const photoRefTablet = useRef(null);
   const isPhotoInViewTablet = useInView(photoRefTablet, { margin: "0px 0px -25% 0px", amount: 0.2 });
@@ -31,7 +31,7 @@ export default function About() {
       if (isPhotoInViewTablet) {
         timeout = setTimeout(() => {
           setIsMobileHovered(true);
-        }, 600);
+        }, 400);
       } else {
         setIsMobileHovered(false);
       }
@@ -39,13 +39,15 @@ export default function About() {
       if (isPhotoInViewMobile) {
         timeout = setTimeout(() => {
           setIsMobileHovered(true);
-        }, 600);
+        }, 500);
       } else {
         setIsMobileHovered(false);
       }
     }
     return () => clearTimeout(timeout);
   }, [isPhotoInViewMobile, isPhotoInViewTablet]);
+
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   return (
     <section id="about" className="px-[16px] md:px-[64px] py-20 bg-[#1f1f1f] mb-20 clip-slant-reverse relative">
@@ -57,9 +59,9 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
+          viewport={{ once: false, margin: isMobile ? "-50px 0px -50px 0px" : "-50px 0px -50px 0px" }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="space-y-6 flex flex-col md:pr-8 lg:pr-12 order-2 md:order-1"
+          className="space-y-6 flex flex-col md:pr-8 lg:pr-12 order-2 md:order-1 will-change-transform"
         >
           <h2 className="text-[18vw] sm:text-[14vw] md:text-8xl lg:text-[8rem] font-p5-title uppercase text-white transform -skew-x-12 -rotate-6 self-start mt-0 mb-2 ml-4 md:ml-0 whitespace-nowrap">
             <RansomText text="ABOUT ME" redChars={['B', 'M']} className="!flex-nowrap" />
@@ -89,9 +91,14 @@ export default function About() {
         <motion.div 
           initial={{ opacity: 0, x: 50, rotate: 5 }}
           whileInView={{ opacity: 1, x: 0, rotate: 0 }}
-          viewport={{ once: false, margin: "-50px 0px -50px 0px" }}
-          transition={{ duration: 0.6, type: "spring", stiffness: 80 }}
-          className="order-1 md:order-2 w-[90%] md:w-full mx-auto relative"
+          viewport={{ once: false, margin: isMobile ? "-50px 0px -50px 0px" : "-50px 0px -50px 0px" }}
+          transition={{ 
+            duration: isMobile ? 0.4 : 0.6, 
+            type: isMobile ? "tween" : "spring", 
+            ease: isMobile ? "easeOut" : undefined,
+            stiffness: 80 
+          }}
+          className="order-1 md:order-2 w-[90%] md:w-full mx-auto relative will-change-transform"
         >
           <motion.img
             src={exclaMarkImg}
@@ -117,7 +124,7 @@ export default function About() {
                 <div ref={photoRefTablet} className="w-full h-full">
                   <div 
                     ref={photoRefMobile}
-                    className={`w-full h-full bg-cover bg-top transition-all duration-700 ease-in-out cursor-pointer ${isMobileHovered ? 'grayscale-0 scale-110' : 'grayscale hover:grayscale-0 hover:scale-110'}`}
+                    className={`w-full h-full bg-cover bg-top transition-all duration-[1200ms] ease-in-out cursor-pointer ${isMobileHovered ? 'grayscale-0 scale-110' : 'grayscale hover:grayscale-0 hover:scale-110'}`}
                     style={{ backgroundImage: 'url(/about-photo.png)' }}
                   ></div>
                 </div>
